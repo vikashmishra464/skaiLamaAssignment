@@ -18,7 +18,8 @@ app.use(cors({
         'http://localhost:3000', 
         'http://localhost:3001',
         'https://skai-lama-assignment-agwt.vercel.app',
-        /\.onrender\.com$/
+        'https://skai-lama-assignment-agwt-m5jwowoac.vercel.app'
+        /\.vercel\.app$/
     ],
     credentials: true
 }));
