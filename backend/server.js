@@ -17,7 +17,7 @@ app.use(cors({
     origin: [
         'http://localhost:3000', 
         'http://localhost:3001',
-        'https://event-management-frontend.onrender.com',
+        'https://skai-lama-assignment-agwt.vercel.app/',
         /\.onrender\.com$/
     ],
     credentials: true
