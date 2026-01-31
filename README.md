@@ -121,6 +121,67 @@ The frontend will run on `http://localhost:3000`
 - `PUT /api/users/:id` - Update user
 - `DELETE /api/users/:id` - Delete user
 
+## Deployment on Render
+
+This project is configured for easy deployment on Render using the included `render.yaml` file.
+
+### Option 1: One-Click Deploy (Recommended)
+
+1. Fork this repository to your GitHub account
+2. Connect your GitHub account to Render
+3. Create a new "Blueprint" on Render and select this repository
+4. Render will automatically detect the `render.yaml` file and deploy both services
+
+### Option 2: Manual Deployment
+
+#### Deploy Backend
+
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Configure the service:
+   - **Name**: `event-management-backend`
+   - **Environment**: `Node`
+   - **Build Command**: `cd backend && npm install`
+   - **Start Command**: `cd backend && npm start`
+   - **Plan**: Free
+
+4. Add Environment Variables:
+   - `NODE_ENV`: `production`
+   - `PORT`: `10000`
+   - `MONGODB_URI`: Your MongoDB connection string
+   - `JWT_SECRET`: A secure random string
+
+5. Deploy the service
+
+#### Deploy Frontend
+
+1. Create another Web Service on Render
+2. Connect the same GitHub repository
+3. Configure the service:
+   - **Name**: `event-management-frontend`
+   - **Environment**: `Node`
+   - **Build Command**: `cd event-management-frontend && npm install && npm run build`
+   - **Start Command**: `cd event-management-frontend && npm start`
+   - **Plan**: Free
+
+4. Add Environment Variables:
+   - `NODE_ENV`: `production`
+   - `NEXT_PUBLIC_API_URL`: `https://your-backend-service.onrender.com/api`
+
+5. Deploy the service
+
+### Database Setup
+
+1. Create a PostgreSQL database on Render (Free tier available)
+2. Update your backend to use the provided connection string
+3. Or use MongoDB Atlas for a cloud MongoDB solution
+
+### Important Notes
+
+- Free tier services on Render may spin down after inactivity
+- The first request after inactivity may take 30+ seconds to respond
+- For production use, consider upgrading to paid plans for better performance
+
 ## Contributing
 
 1. Fork the repository

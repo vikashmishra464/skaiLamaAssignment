@@ -1,0 +1,39 @@
+services:
+  # Backend API Service
+  - type: web
+    name: event-management-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: event-management-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+    healthCheckPath: /api/health
+
+  # Frontend Service
+  - type: web
+    name: event-management-frontend
+    env: node
+    plan: free
+    buildCommand: cd event-management-frontend && npm install && npm run build
+    startCommand: cd event-management-frontend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://event-management-backend.onrender.com/api
+
+databases:
+  - name: event-management-db
+    databaseName: event_management
+    user: admin
+    plan: free

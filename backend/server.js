@@ -14,7 +14,12 @@ const eventRoutes = require('./routes/eventRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+        'http://localhost:3000', 
+        'http://localhost:3001',
+        'https://event-management-frontend.onrender.com',
+        /\.onrender\.com$/
+    ],
     credentials: true
 }));
 
